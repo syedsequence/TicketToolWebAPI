@@ -10,3 +10,25 @@
 A clean and scalable **ASP.NET Core Web API** built using a professional **4‑tier architecture**.
 
 ---
+
+## 📐 Architecture Overview
+
+### **API Layer**
+- Controllers  
+- Request/Response Models  
+
+### **Service Layer**
+- Business Logic  
+- Mapster Profiles  
+
+### **Repository Layer**
+- Data Access Abstraction  
+- Repository Pattern  
+
+### **Data Layer**
+- EF Core  
+- DbContext  
+- Entities  
+
+---
+
