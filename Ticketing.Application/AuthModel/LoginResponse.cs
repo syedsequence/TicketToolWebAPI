@@ -4,15 +4,15 @@
 	{
 		public string UserId { get; set; }
 
+		public DateTime LastLoggedIn { get; set; }
+
 		public string Token { get; set; }
 
 		public string RefreshToken { get; set; }
 
 		public DateTime RefreshTokenExpiryTime { get; set; }
 
-		public bool EmailVerified { get; set; } = false;
-
-		public bool PhoneVerified { get; set; } = false;
+		public string Role { get; set; }
 
 	}
 }

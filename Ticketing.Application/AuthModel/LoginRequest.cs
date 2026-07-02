@@ -1,12 +1,17 @@
-﻿namespace Ticketing.Application.AuthModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Ticketing.Application.AuthModel
 {
 	public class LoginRequest
 	{
+		[Required]
+		[EmailAddress]
 		public string Email { get; set; }
 
+		[Required]
 		public string Password { get; set; }
 
-		public bool RememberMe { get; set; } = false
+		public bool RememberMe { get; set; } = false;
 
 
 	}

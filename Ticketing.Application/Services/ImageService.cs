@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Ticketing.Application.Constants;
+using Ticketing.Application.Exceptions;
 using Ticketing.Application.Services.Interfaces;
 
 namespace Ticketing.Application.Services
@@ -17,7 +19,7 @@ namespace Ticketing.Application.Services
 		public async Task<string?> UploadImageAsync(IFormFile file, string folderName)
 		{
 			if(file == null || file.Length == 0)
-				throw new Exception("Please select an image.");
+				throw new BadCustomException(CommonMessages.SelectImage);
 
 			// Allowed extensions
 			var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
@@ -25,7 +27,7 @@ namespace Ticketing.Application.Services
 			var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
 
 			if(!allowedExtensions.Contains(extension))
-				throw new Exception("Only JPG, JPEG and PNG images are allowed.");
+				throw new BadCustomException(CommonMessages.InvalidImageExtension);
 
 			var allowedContentTypes = new[]
 			{
@@ -35,7 +37,7 @@ namespace Ticketing.Application.Services
 
 			if(!allowedContentTypes.Contains(file.ContentType.ToLower()))
 			{
-				throw new Exception("Invalid image format.");
+				throw new BadCustomException(CommonMessages.InvalidImageFormat);
 			}
 
 			const long minSize = 50 * 1024;
@@ -43,7 +45,7 @@ namespace Ticketing.Application.Services
 
 			if(file.Length < minSize || file.Length > maxSize)
 			{
-				throw new Exception("Image size must be between 50 KB and 200 KB.");
+				throw new BadCustomException(CommonMessages.InvalidImageSize);
 			}
 
 			var webRoot = _environment.WebRootPath;

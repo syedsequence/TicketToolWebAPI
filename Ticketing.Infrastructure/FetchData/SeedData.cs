@@ -31,6 +31,30 @@ namespace Ticketing.Infrastructure.FetchData
 			}
 		}
 
+		public static async Task SeedSuperAdminUser(IServiceProvider serviceProvider)
+		{
+			using var scope = serviceProvider.CreateScope();
+			var userManager = scope.ServiceProvider.GetRequiredService<UserManager<TicketingUser>>();
+			var user = new TicketingUser
+			{
+				FirstName = "Syed",
+				LastName = "Ribas",
+				Email = "ribasm2801@gmail.com",
+				UserName = "ribasm2801@gmail.com",
+				EmailConfirmed = true,
+				PhoneNumber = "",
+				PhoneNumberConfirmed = true,
+				DateOfBirth = new DateTime(2000, 01, 28),
+			};
+			var result = await userManager.CreateAsync(user, "");
+			if(result.Succeeded)
+			{
+
+				await userManager.AddToRoleAsync(user, "");
+
+
+			}
+		}
 		public async static Task SeedAllData(TicketingDbContext _dbContext)
 		{
 			await SeedTickets(_dbContext);

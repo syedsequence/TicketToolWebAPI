@@ -166,6 +166,7 @@ UpdateDatabaseAsync(app);
 var serviceProvider = app.Services;
 
 await SeedData.SeedRoles(serviceProvider);
+await SeedData.SeedSuperAdminUser(serviceProvider);
 
 #endregion
 

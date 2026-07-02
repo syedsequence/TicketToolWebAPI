@@ -21,6 +21,9 @@ namespace Ticketing.Application.AuthModel
 		[Compare(nameof(Password))]
 		public string ConfirmPassword { get; set; }
 
-		public IFormFile? ProfileImage { get; set; }
+		[Required]
+		public string Role { get; set; }
+
+		public IFormFile ProfileImage { get; set; }
 	}
 }
