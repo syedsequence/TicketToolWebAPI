@@ -73,7 +73,7 @@ builder.Services.AddAuthentication(options =>
 		ClockSkew = TimeSpan.Zero,
 		ValidIssuer = builder.Configuration["Jwt:Issuer"],
 		ValidAudience = builder.Configuration["Jwt:Audience"],
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["MyCustomSettings:APIKEY"]))
 	};
 });
 
@@ -164,9 +164,10 @@ var app = builder.Build();
 UpdateDatabaseAsync(app);
 
 var serviceProvider = app.Services;
+var config = serviceProvider.GetRequiredService<IConfiguration>();
 
 await SeedData.SeedRoles(serviceProvider);
-await SeedData.SeedSuperAdminUser(serviceProvider);
+await SeedData.SeedSuperAdminUser(serviceProvider, config);
 
 #endregion
 

@@ -259,7 +259,7 @@ namespace Ticketing.Application.Services
 			try
 			{
 				var securityKey = new SymmetricSecurityKey(
-							 Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+							 Encoding.UTF8.GetBytes(_config["MyCustomSettings:APIKEY"]));
 
 				var credentials = new SigningCredentials(
 					securityKey,
@@ -334,7 +334,7 @@ namespace Ticketing.Application.Services
 					ValidAudience = _config["Jwt:Audience"],
 
 					IssuerSigningKey = new SymmetricSecurityKey(
-						Encoding.UTF8.GetBytes(_config["Jwt:Key"]))
+						Encoding.UTF8.GetBytes(_config["MyCustomSettings:APIKEY"]))
 				};
 
 				var tokenHandler = new JwtSecurityTokenHandler();

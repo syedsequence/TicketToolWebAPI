@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ticketing.Application.AuthModel;
 using Ticketing.Domain.Models;
 using Ticketing.Infrastructure.DbContext;
 
@@ -31,7 +33,7 @@ namespace Ticketing.Infrastructure.FetchData
 			}
 		}
 
-		public static async Task SeedSuperAdminUser(IServiceProvider serviceProvider)
+		public static async Task SeedSuperAdminUser(IServiceProvider serviceProvider, IConfiguration _config)
 		{
 			using var scope = serviceProvider.CreateScope();
 			var userManager = scope.ServiceProvider.GetRequiredService<UserManager<TicketingUser>>();
@@ -39,18 +41,18 @@ namespace Ticketing.Infrastructure.FetchData
 			{
 				FirstName = "Syed",
 				LastName = "Ribas",
-				Email = "ribasm2801@gmail.com",
-				UserName = "ribasm2801@gmail.com",
+				Email = _config["MyCustomSettings:SUPERUSER"],
+				UserName = _config["MyCustomSettings:SUPERUSER"],
 				EmailConfirmed = true,
-				PhoneNumber = "",
+				PhoneNumber = "7448745875",
 				PhoneNumberConfirmed = true,
 				DateOfBirth = new DateTime(2000, 01, 28),
 			};
-			var result = await userManager.CreateAsync(user, "");
+			var result = await userManager.CreateAsync(user, _config["MyCustomSettings:PASSWORD"]);
 			if(result.Succeeded)
 			{
 
-				await userManager.AddToRoleAsync(user, "");
+				await userManager.AddToRoleAsync(user, _config["MyCustomSettings:ROLE"]);
 
 
 			}
